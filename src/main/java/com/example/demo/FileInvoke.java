@@ -27,8 +27,13 @@ public class FileInvoke {
             if (filePath.startsWith(CLASSPATH_URL_PREFIX)) {
                 filePath = filePath.substring(CLASSPATH_URL_PREFIX.length());
             }
-            InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream(filePath);
-            BufferedReader br = new BufferedReader(new InputStreamReader(resourceAsStream));
+            // 方式1
+            // InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream(filePath);
+            // BufferedReader br = new BufferedReader(new InputStreamReader(resourceAsStream));
+            // 方式2
+            ClassPathResource classPathResource = new ClassPathResource(filePath);
+            InputStream inputStream = classPathResource.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             StringBuffer sb = new StringBuffer();
             String s;
             while ((s = br.readLine()) != null) {
